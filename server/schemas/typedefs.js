@@ -3,7 +3,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   scalar date
 
-  type cat {
+  type Cat {
     _id: ID!
     breed: String
     quantity: Number
@@ -11,14 +11,14 @@ const typeDefs = gql`
     weight: Number
   }
 
-  type dog {
+  type Dog {
     _id: ID!
     breed: String
     quantity: Number
     age: Number
     weight: Number
   }
-  type petowner {
+  type Petowner {
     _id: ID!
     firstname: String
     lastname: String
@@ -28,7 +28,7 @@ const typeDefs = gql`
     instructions: String
   }
 
-  type travel{
+  type Travel{
     _id: ID!
     traveltype: String
     traveldate: datq
@@ -48,7 +48,7 @@ const typeDefs = gql`
 
   type Query {
     petowners: [petowner]
-    petowner(petownerId: ID!): petowner
+    petowner(petownerId: ID!): Petowner
 
     cats: [cat]
     cat: (catId: ID): cat
@@ -61,45 +61,46 @@ const typeDefs = gql`
   }
 
   type Mutation {
-        createQuote(                   
-            firstname: String!,
-            lastname: String!,
-            email: String!,
-            phonenumber: String!,
-            cellnumber: String!,
-            instructions: String
-        ): 
-        petowner
+    createQuote(                   
+        firstname: String!
+        lastname: String!
+        email: String!
+        phonenumber: String!
+        cellnumber: String!
+        instructions: String
+    ):petowner
 
-        createCat(
-            breed: String!,
-            quantity: Number!,
-            age: Number!,
-            weight: Number            
-        ):cat
+    createCat(
+        breed: String!
+        quantity: Number!
+        age: Number!
+        weight: Number            
+    ):cat
 
-        createDog(
-            breed: String!,
-            quantity: Number!,
-            age: Number!,
-            weight: Number            
-        ):dog
+    createDog(
+        breed: String!
+        quantity: Number!
+        age: Number!
+        weight: Number            
+    ):dog
 
-        createTrip(
-            traveltype: String
-            traveldate: datq
-            returndate: Date
-            pickupaddress: String
-            pickupaddress2: String
-            pickupcity: String
-            pickupstate: String
-            pickupzip: String
-            destinationaddress: String
-            destinationaddress2: String
-            destinationcity: String
-            destinationstate: String
-            destinationzip: String
-            otherinfo: String
-        ):travel
+    createTrip(
+        traveltype: String
+        traveldate: datq
+        returndate: Date
+        pickupaddress: String
+        pickupaddress2: String
+        pickupcity: String
+        pickupstate: String
+        pickupzip: String
+        destinationaddress: String
+        destinationaddress2: String
+        destinationcity: String
+        destinationstate: String
+        destinationzip: String
+        otherinfo: String
+    ):travel
   }
 `;
+
+module.exports = typeDefs;
