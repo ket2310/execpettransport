@@ -1,7 +1,7 @@
 const { PetOwner, Cat, Dog, Travel } = require("../models");
 
 const { AuthenticationError } = require("apollo-server-express");
-const { signToken } = require("../utils/auth");
+//const { signToken } = require("../utils/auth");
 const { ObjectId } = require("mongodb");
 
 const resolvers = {

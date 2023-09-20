@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
-const catSchema = require("./cat");
-const dogSchema = require("./dog");
+const catSchema = require("./Cat");
+const dogSchema = require("./Dog");
 
 const petownerSchema = new Schema(
   {
@@ -36,13 +36,13 @@ const petownerSchema = new Schema(
       type: String,
       trim: true,
     },
-    cat: {
+    Cat: {
       type: Schema.Types.ObjectId,
-      ref: "cat",
+      ref: "Cat",
     },
-    dog: {
+    Dog: {
       type: Schema.Types.ObjectId,
-      ref: "dog",
+      ref: "Dog",
     },
   },
   {
