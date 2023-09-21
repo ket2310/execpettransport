@@ -1,30 +1,21 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_CAT = gql`
-mutation createCat     ( $breed: String,
-                      $quantity: Number,
-                      $age: Number.
-                      $weight: Number      
-                    ) 
-                    {
-                      createCat (breed: $breed,
-                                     quantity: $quantity, 
-                                     age: $age,
-                                     weight: $weight
-                                    ) 
-                                    {
-                                        breed
-                                        quantity
-                                        age
-                                        weight
-                                    }
-                    }`;
+  mutation createCat($breed: String, $quantity: Int, $age: Int, $weight: Int) {
+    createCat(breed: $breed, quantity: $quantity, age: $age, weight: $weight) {
+      breed
+      quantity
+      age
+      weight
+    }
+  }
+`;
 
 export const CREATE_DOG = gql`
 mutation createDog ( $breed: String,
-                      $quantity: Number,
-                      $age: Number.
-                      $weight: Number      
+                      $quantity: Int,
+                      $age: Int.
+                      $weight: Int      
                     ) 
                     {
                       createDog (breed: $breed,
@@ -69,8 +60,8 @@ export const CREATE_QUOTE = gql`
 export const CREATE_TRIP = gql`
 mutation createTrip (
         $traveltype: String,
-        $traveldate: Date,
-        $returndate: Date,
+        $traveldate: date,
+        $returndate: date,
         $pickupaddress: String,
         $pickupaddress2: String,
         $pickupcity: String,
