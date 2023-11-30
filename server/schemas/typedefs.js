@@ -26,6 +26,8 @@ const typeDefs = gql`
     phonenumber: String
     cellnumber: String
     instructions: String
+    cats: Cat
+    dogs: Dog
   }
 
   type Travel {
@@ -45,6 +47,56 @@ const typeDefs = gql`
     destinationzip: String
     otherinfo: String
   }
+
+  input petownerdata {
+    _id: ID
+    firstname: String
+    lastname: String
+    email: String
+    phonenumber: String
+    cellnumber: String
+  }
+
+  input catData {
+    _id: ID
+    breed: String
+    quantity: Int
+    age: Int
+    weight: Int
+  }
+
+  input dogData {
+    _id: ID
+    breed: String
+    quantity: Int
+    age: Int
+    weight: Int
+  }
+
+  input travelData {
+    _id: ID
+    traveltype: String
+    traveldate: date
+    returndate: date
+    pickupaddress: String
+    pickupaddress2: String
+    pickupcity: String
+    pickupstate: String
+    pickupzip: String
+    destinationaddress: String
+    destinationaddress2: String
+    destinationcity: String
+    destinationstate: String
+    destinationzip: String
+    otherinfo: String
+  }
+  type Quote {
+    _id: ID!
+    petowner: PetOwner!
+    cats: Cat!
+    dogs: Dog!
+    travel: Travel!
+  }
   type Query {
     petowners: [PetOwner]
     petowner(petownerId: ID!): PetOwner
@@ -57,17 +109,18 @@ const typeDefs = gql`
 
     travels: [Travel]
     travel(travelId: ID!): Travel
+
+    quote: [Quote]
+    Quote(quoteId: ID!): Quote
   }
 
   type Mutation {
     createQuote(
-      firstname: String!
-      lastname: String!
-      email: String!
-      phonenumber: String!
-      cellnumber: String!
-      instructions: String
-    ): PetOwner
+      petowner: petownerdata!
+      cats: catData!
+      dogs: dogData!
+      travel: travelData!
+    ): Quote
 
     createCat(breed: String!, quantity: Int!, age: Int!, weight: Int): Cat
 

@@ -1,3 +1,15 @@
+import React, { useState } from "react";
+
+import findDateOfLesson from "../utils/findDateOfLesson";
+import { useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import {
+  QUERY_HORSES,
+  QUERY_RIDERS,
+  QUERY_INSTRUCTORS,
+  QUERY_LESSONS,
+} from "../utils/queries";
+
 function freeQuoteForm() {
   return (
     <div className="popup">

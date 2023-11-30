@@ -1,4 +1,4 @@
-const { PetOwner, Cat, Dog, Travel } = require("../models");
+const { PetOwner, Cat, Dog, Travel, Quote } = require("../models");
 
 const { AuthenticationError } = require("apollo-server-express");
 //const { signToken } = require("../utils/auth");
@@ -53,6 +53,14 @@ const resolvers = {
     travels: async () => {
       return Travel.find({});
     },
+
+    quote: async (parent, { quoteId }) => {
+      return Quote.findOne(ObjectId(quoteId));
+    },
+
+    quotes: async () => {
+      return Quote.find({});
+    },
   },
 
   Mutation: {
@@ -70,6 +78,11 @@ const resolvers = {
 
     createDog: async (parent, { breed, quantity, age, weight }) => {
       const dog = await Dog.create({ breed, quantity, age, weight });
+      return { dog };
+    },
+
+    createQuote: async (parent, { petowner, cats, dogs, travel }) => {
+      const quoteId = await Quote.create({ petowner, cats, dogs, travel });
       return { dog };
     },
   },
