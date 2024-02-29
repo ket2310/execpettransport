@@ -81,9 +81,9 @@ const resolvers = {
       return { dog };
     },
 
-    createQuote: async (parent, { petowner, cats, dogs, travel }) => {
-      const quoteId = await Quote.create({ petowner, cats, dogs, travel });
-      return { dog };
+    createQuote: async (parent, { petowner, travel }) => {
+      const quote = await Quote.create({ petowner, travel });
+      return { quote };
     },
   },
 };

@@ -55,6 +55,9 @@ const typeDefs = gql`
     email: String
     phonenumber: String
     cellnumber: String
+    instructions: String
+    cat: catData
+    dog: dogData
   }
 
   input catData {
@@ -93,8 +96,6 @@ const typeDefs = gql`
   type Quote {
     _id: ID!
     petowner: PetOwner!
-    cats: Cat!
-    dogs: Dog!
     travel: Travel!
   }
   type Query {
@@ -110,17 +111,12 @@ const typeDefs = gql`
     travels: [Travel]
     travel(travelId: ID!): Travel
 
-    quote: [Quote]
-    Quote(quoteId: ID!): Quote
+    quotes: [Quote]
+    quote(quoteId: ID!): Quote
   }
 
   type Mutation {
-    createQuote(
-      petowner: petownerdata!
-      cats: catData!
-      dogs: dogData!
-      travel: travelData!
-    ): Quote
+    createQuote(petowner: petownerdata!, travel: travelData!): Quote
 
     createCat(breed: String!, quantity: Int!, age: Int!, weight: Int): Cat
 

@@ -25,18 +25,6 @@ export const QUERY_DOGS = gql`
 `;
 
 export const QUERY_TRIPS = gql`
-  query getClients {
-    _id
-    firstname
-    lastname
-    email
-    phonenumber
-    cellnumber
-    instructions
-  }
-`;
-
-export const QUERY_CLIENTS = gql`
   query getTrips {
     _id
     traveltype
@@ -53,5 +41,65 @@ export const QUERY_CLIENTS = gql`
     destinationstate
     destinationzip
     otherinfo
+  }
+`;
+
+export const QUERY_CLIENTS = gql`
+  query getClients {
+    _id
+    firstname
+    lastname
+    email
+    phonenumber
+    cellnumber
+    instructions
+  }
+`;
+
+export const QUERY_QUOTES = gql`
+  query getQuotes {
+    quotes {
+      _id
+      petowner {
+        _id
+        firstname
+        lastname
+        email
+        phonenumber
+        cellNumber
+        instructions
+      }
+      cat {
+        _id
+        breed
+        quantity
+        age
+        weight
+      }
+      dog {
+        _id
+        breed
+        quantity
+        age
+        weight
+      }
+      travel {
+        _id
+        traveltype
+        traveldate
+        returndate
+        pickupaddress
+        pickupAddress2
+        pickupCity
+        pickupstate
+        pickupzip
+        destinationaddress
+        destinationaddress2
+        destinationcity
+        destinationstate
+        destinationzip
+        otherinfo
+      }
+    }
   }
 `;
