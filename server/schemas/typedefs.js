@@ -116,7 +116,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createQuote(petowner: petownerdata!, travel: travelData!): Quote
+    createQuote(petowner: petownerdata, travel: travelData): Quote
 
     createCat(breed: String!, quantity: Int!, age: Int!, weight: Int): Cat
 

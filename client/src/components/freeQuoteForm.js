@@ -1,15 +1,7 @@
 import React, { useState } from "react";
-import { from, useMutation } from "@apollo/client";
-import { useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import "../styles/colleft.css";
-import {
-  QUERY_CATS,
-  QUERY_CLIENTS,
-  QUERY_DOGS,
-  QUERY_TRIPS,
-  QUERY_QUOTES,
-} from "../utils/queries";
-
+import { QUERY_QUOTES } from "../utils/queries";
 import { CREATE_QUOTE } from "../utils/mutations";
 
 function FreeQuoteForm() {
@@ -19,10 +11,11 @@ function FreeQuoteForm() {
     email: "",
     phoneNumber: "",
     cellNumber: "",
+    instructions: "",
     numberOfCats: "",
     catbreed: "",
-    catage: "",
-    catweight: "",
+    catage: 0,
+    catweight: 0,
     numberOfDogs: "",
     dogbreed: "",
     dogage: "",
@@ -40,6 +33,7 @@ function FreeQuoteForm() {
     destCity: "",
     destState: "",
     destZip: "",
+    otherInfo: "",
   });
 
   const [createQuote] = useMutation(CREATE_QUOTE, {
@@ -56,6 +50,58 @@ function FreeQuoteForm() {
       }
     },
   });
+
+  const handleFormSubmit = async () => {
+    //try to book a lesson with formdata state and other variables
+    try {
+      const { loading } = await createQuote({
+        variables: {
+          ...formData,
+        },
+      });
+      // If it's not loading close modal and then set formData back to empty
+      if (!loading) {
+        setFormData({
+          firstname: "",
+          lastname: "",
+          email: "",
+          phonenumber: "",
+          cellnumber: "",
+          instructions: "",
+          numberOfCats: "",
+          catbreed: "",
+          catage: "",
+          catweight: "",
+          numberOfDogs: "",
+          dogbreed: "",
+          dogage: "",
+          dogweight: "",
+          traveltype: "",
+          traveldate: "",
+          returndate: "",
+          pickupaddress: "",
+          pickupaddress2: "",
+          pickupcity: "",
+          pickupstate: "",
+          pickupzip: "",
+          destinationaddress: "",
+          destinationaddress2: "",
+          destinationcity: "",
+          destinationstate: "",
+          destinationzip: "",
+          otherinfo: "",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    //grab the name and value from item changed
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
   return (
     <div>
       <h1>
@@ -141,48 +187,113 @@ function FreeQuoteForm() {
               <h3>Your Contact Information</h3>
               <div>
                 <label> First Name:</label>&nbsp;
-                <input type="text" placeholder="First Name" />
+                <input
+                  name="firstName"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="First Name"
+                />
                 <br />
                 <label> Last Name:</label>&nbsp;
-                <input type="text" placeholder="Last Name" />
+                <input
+                  name="lastName"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Last Name"
+                />
                 <br />
                 <label>E-mail:</label>&nbsp;
-                <input type="text" placeholder="E-mail" />
+                <input
+                  name="emaiol"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="E-mail"
+                />
                 <br />
                 <label> Phone Number:</label>&nbsp;
-                <input type="text" placeholder="Phone Number" />
+                <input
+                  name="phoneNumber"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Phone Number"
+                />
                 <br />
                 <label>Cell Phone:</label>&nbsp;
-                <input type="text" placeholder="Cell Phone" />
+                <input
+                  name="cellNumber"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Cell Number"
+                />
                 <br />
                 <h3>
                   <strong>Pet Information</strong>
                 </h3>
                 <p>Please fill out all applicable fields</p>
                 <label> Number of Cats:</label>&nbsp;
-                <input type="text" placeholder="Number of Cats" />
+                <input
+                  name="numberOfCats"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Number of Cats"
+                />
                 <br />
                 <label> Breed:</label>&nbsp;
-                <input type="text" placeholder="Breed" />
+                <input
+                  name="catbreed"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Breed"
+                />
                 <br />
                 <label> Age:</label>&nbsp;
-                <input type="text" placeholder="Age" />
+                <input
+                  name="catage"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Age"
+                />
                 <br />
                 <label> Weight:</label>&nbsp;
-                <input type="text" placeholder="Weight" />
+                <input
+                  name="catweight"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Weight"
+                />
                 <br />
                 <br />
                 <label> Number of Dogs:</label>&nbsp;
-                <input type="text" placeholder="Number of Dogs" />
+                <input
+                  name="numberOfdogs"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Number of dogs"
+                />
                 <br />
                 <label> Breed:</label>&nbsp;
-                <input type="text" placeholder="Breed" />
+                <input
+                  name="dogbreed"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Breed"
+                />
                 <br />
                 <label> Age:</label>&nbsp;
-                <input type="text" placeholder="Age" />
+                <input
+                  name="dogage"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Age"
+                />
                 <br />
                 <label> Weight:</label>&nbsp;
-                <input type="text" placeholder="Weight" />
+                <input
+                  name="dogweight"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Weight"
+                />
                 <br />
                 <label>
                   Any special instructions/medical information we need to know
@@ -190,6 +301,7 @@ function FreeQuoteForm() {
                 </label>
                 <br />
                 <textarea
+                  onChange={handleInputChange}
                   rows="4"
                   cols="50"
                   placeholder="Instructions"
@@ -213,11 +325,21 @@ function FreeQuoteForm() {
                 <br />
                 <label>Date of Travel</label>
                 <br />
-                <input type="text" placeholder="Travel Date" />
+                <input
+                  name="departDate"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Departure Date"
+                />
                 <br />
                 <label>Date of Return</label>
                 <br />
-                <input type="text" placeholder="Return Date" />
+                <input
+                  name="returnDate"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Return Date"
+                />
                 <br />
                 <br />
                 <br />
@@ -226,11 +348,21 @@ function FreeQuoteForm() {
                 </h3>
                 <label>Address Line 1</label>
                 <br />
-                <input type="text" />
+                <input
+                  name="pickupAddress1"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Address 1"
+                />
                 <br />
                 <label>Address Line 2</label>
                 <br />
-                <input type="text" />
+                <input
+                  name="pickupAddress2"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Address 2"
+                />
                 <br />
                 <table>
                   <tbody>
@@ -247,13 +379,28 @@ function FreeQuoteForm() {
                     </tr>
                     <tr>
                       <td>
-                        <input type="text" />
+                        <input
+                          name="pickupCity"
+                          onChange={handleInputChange}
+                          type="text"
+                          placeholder="City"
+                        />
                       </td>
                       <td>
-                        <input type="text" />
+                        <input
+                          name="pickupState"
+                          onChange={handleInputChange}
+                          type="text"
+                          placeholder="State"
+                        />
                       </td>
                       <td>
-                        <input type="text" />
+                        <input
+                          name="pickupZip"
+                          onChange={handleInputChange}
+                          type="text"
+                          placeholder="Zip"
+                        />
                       </td>
                     </tr>
                   </tbody>
@@ -265,11 +412,21 @@ function FreeQuoteForm() {
                 </h3>
                 <label>Address Line 1</label>
                 <br />
-                <input type="text" />
+                <input
+                  name="destAddress1"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Address 1"
+                />
                 <br />
                 <label>Address Line 2</label>
                 <br />
-                <input type="text" />
+                <input
+                  name="destAddress2"
+                  onChange={handleInputChange}
+                  type="text"
+                  placeholder="Address 2"
+                />
                 <br />
                 <table>
                   <tbody>
@@ -286,19 +443,48 @@ function FreeQuoteForm() {
                     </tr>
                     <tr>
                       <td>
-                        <input type="text" />
+                        <input
+                          name="destCity"
+                          onChange={handleInputChange}
+                          type="text"
+                          placeholder="City"
+                        />
                       </td>
                       <td>
-                        <input type="text" />
+                        <input
+                          name="destState"
+                          onChange={handleInputChange}
+                          type="text"
+                          placeholder="State"
+                        />
                       </td>
                       <td>
-                        <input type="text" />
+                        <input
+                          name="destZip"
+                          onChange={handleInputChange}
+                          type="text"
+                          placeholder="Zip"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          name="otherInfo"
+                          onChange={handleInputChange}
+                          type="text"
+                          placeholder="Zip"
+                        />
                       </td>
                     </tr>
                   </tbody>
                 </table>
                 <br />
-                <button>Submit</button>
+                <button
+                  type="button"
+                  id="createQuote"
+                  onClick={(e) => handleFormSubmit(e)}
+                >
+                  Submit
+                </button>
               </div>
             </td>
           </tr>
