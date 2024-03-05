@@ -6,34 +6,8 @@ import { CREATE_QUOTE } from "../utils/mutations";
 
 function FreeQuoteForm() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    cellNumber: "",
-    instructions: "",
-    numberOfCats: "",
-    catbreed: "",
-    catage: 0,
-    catweight: 0,
-    numberOfDogs: "",
-    dogbreed: "",
-    dogage: "",
-    dogweight: "",
-    travelType: "",
-    departDate: "",
-    returnDate: "",
-    pickupAddress1: "",
-    pickupAddress2: "",
-    pickupCity: "",
-    pickupState: "",
-    pickupZip: "",
-    destAddress1: "",
-    destAddress2: "",
-    destCity: "",
-    destState: "",
-    destZip: "",
-    otherInfo: "",
+    petowner: {},
+    travel: {}
   });
 
   const [createQuote] = useMutation(CREATE_QUOTE, {
@@ -62,34 +36,8 @@ function FreeQuoteForm() {
       // If it's not loading close modal and then set formData back to empty
       if (!loading) {
         setFormData({
-          firstname: "",
-          lastname: "",
-          email: "",
-          phonenumber: "",
-          cellnumber: "",
-          instructions: "",
-          numberOfCats: "",
-          catbreed: "",
-          catage: "",
-          catweight: "",
-          numberOfDogs: "",
-          dogbreed: "",
-          dogage: "",
-          dogweight: "",
-          traveltype: "",
-          traveldate: "",
-          returndate: "",
-          pickupaddress: "",
-          pickupaddress2: "",
-          pickupcity: "",
-          pickupstate: "",
-          pickupzip: "",
-          destinationaddress: "",
-          destinationaddress2: "",
-          destinationcity: "",
-          destinationstate: "",
-          destinationzip: "",
-          otherinfo: "",
+          petowner: {},
+          travel: {}
         });
       }
     } catch (err) {
@@ -186,6 +134,7 @@ function FreeQuoteForm() {
               <hr />
               <h3>Your Contact Information</h3>
               <div>
+                <form onSubmit={handleFormSubmit}>
                 <label> First Name:</label>&nbsp;
                 <input
                   name="firstName"
@@ -485,6 +434,7 @@ function FreeQuoteForm() {
                 >
                   Submit
                 </button>
+                </form>
               </div>
             </td>
           </tr>
