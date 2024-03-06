@@ -7,7 +7,7 @@ import { CREATE_QUOTE } from "../utils/mutations";
 function FreeQuoteForm() {
   const [formData, setFormData] = useState({
     petowner: {},
-    travel: {}
+    travel: {},
   });
 
   const [createQuote] = useMutation(CREATE_QUOTE, {
@@ -31,13 +31,14 @@ function FreeQuoteForm() {
       const { loading } = await createQuote({
         variables: {
           ...formData,
+          firstName: formData.firstName,
         },
       });
       // If it's not loading close modal and then set formData back to empty
       if (!loading) {
         setFormData({
           petowner: {},
-          travel: {}
+          travel: {},
         });
       }
     } catch (err) {
@@ -135,305 +136,305 @@ function FreeQuoteForm() {
               <h3>Your Contact Information</h3>
               <div>
                 <form onSubmit={handleFormSubmit}>
-                <label> First Name:</label>&nbsp;
-                <input
-                  name="firstName"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="First Name"
-                />
-                <br />
-                <label> Last Name:</label>&nbsp;
-                <input
-                  name="lastName"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Last Name"
-                />
-                <br />
-                <label>E-mail:</label>&nbsp;
-                <input
-                  name="emaiol"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="E-mail"
-                />
-                <br />
-                <label> Phone Number:</label>&nbsp;
-                <input
-                  name="phoneNumber"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Phone Number"
-                />
-                <br />
-                <label>Cell Phone:</label>&nbsp;
-                <input
-                  name="cellNumber"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Cell Number"
-                />
-                <br />
-                <h3>
-                  <strong>Pet Information</strong>
-                </h3>
-                <p>Please fill out all applicable fields</p>
-                <label> Number of Cats:</label>&nbsp;
-                <input
-                  name="numberOfCats"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Number of Cats"
-                />
-                <br />
-                <label> Breed:</label>&nbsp;
-                <input
-                  name="catbreed"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Breed"
-                />
-                <br />
-                <label> Age:</label>&nbsp;
-                <input
-                  name="catage"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Age"
-                />
-                <br />
-                <label> Weight:</label>&nbsp;
-                <input
-                  name="catweight"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Weight"
-                />
-                <br />
-                <br />
-                <label> Number of Dogs:</label>&nbsp;
-                <input
-                  name="numberOfdogs"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Number of dogs"
-                />
-                <br />
-                <label> Breed:</label>&nbsp;
-                <input
-                  name="dogbreed"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Breed"
-                />
-                <br />
-                <label> Age:</label>&nbsp;
-                <input
-                  name="dogage"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Age"
-                />
-                <br />
-                <label> Weight:</label>&nbsp;
-                <input
-                  name="dogweight"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Weight"
-                />
-                <br />
-                <label>
-                  Any special instructions/medical information we need to know
-                  about your pet(s)?{" "}
-                </label>
-                <br />
-                <textarea
-                  onChange={handleInputChange}
-                  rows="4"
-                  cols="50"
-                  placeholder="Instructions"
-                ></textarea>
-                <br />
-                <br />
-                <h3>
-                  <strong>Travel Information</strong>
-                </h3>
-                <label>Type of Travel</label>
-                <br />
-                <select name="traveltype">
-                  <option defaultValue></option>
-                  <option value="1" key="1">
-                    One Way Trip
-                  </option>
-                  <option value="2" key="2">
-                    Two Way Trip
-                  </option>
-                </select>
-                <br />
-                <label>Date of Travel</label>
-                <br />
-                <input
-                  name="departDate"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Departure Date"
-                />
-                <br />
-                <label>Date of Return</label>
-                <br />
-                <input
-                  name="returnDate"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Return Date"
-                />
-                <br />
-                <br />
-                <br />
-                <h3>
-                  <strong>Pickup Address</strong>
-                </h3>
-                <label>Address Line 1</label>
-                <br />
-                <input
-                  name="pickupAddress1"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Address 1"
-                />
-                <br />
-                <label>Address Line 2</label>
-                <br />
-                <input
-                  name="pickupAddress2"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Address 2"
-                />
-                <br />
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <label>City</label>
-                      </td>
-                      <td>
-                        <label>State</label>
-                      </td>
-                      <td>
-                        <label>Zip</label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input
-                          name="pickupCity"
-                          onChange={handleInputChange}
-                          type="text"
-                          placeholder="City"
-                        />
-                      </td>
-                      <td>
-                        <input
-                          name="pickupState"
-                          onChange={handleInputChange}
-                          type="text"
-                          placeholder="State"
-                        />
-                      </td>
-                      <td>
-                        <input
-                          name="pickupZip"
-                          onChange={handleInputChange}
-                          type="text"
-                          placeholder="Zip"
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br />
-                <br />
-                <h3>
-                  <strong>Destination Address</strong>
-                </h3>
-                <label>Address Line 1</label>
-                <br />
-                <input
-                  name="destAddress1"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Address 1"
-                />
-                <br />
-                <label>Address Line 2</label>
-                <br />
-                <input
-                  name="destAddress2"
-                  onChange={handleInputChange}
-                  type="text"
-                  placeholder="Address 2"
-                />
-                <br />
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <label>City</label>
-                      </td>
-                      <td>
-                        <label>State</label>
-                      </td>
-                      <td>
-                        <label>Zip</label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input
-                          name="destCity"
-                          onChange={handleInputChange}
-                          type="text"
-                          placeholder="City"
-                        />
-                      </td>
-                      <td>
-                        <input
-                          name="destState"
-                          onChange={handleInputChange}
-                          type="text"
-                          placeholder="State"
-                        />
-                      </td>
-                      <td>
-                        <input
-                          name="destZip"
-                          onChange={handleInputChange}
-                          type="text"
-                          placeholder="Zip"
-                        />
-                      </td>
-                      <td>
-                        <input
-                          name="otherInfo"
-                          onChange={handleInputChange}
-                          type="text"
-                          placeholder="Zip"
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br />
-                <button
-                  type="button"
-                  id="createQuote"
-                  onClick={(e) => handleFormSubmit(e)}
-                >
-                  Submit
-                </button>
+                  <label> First Name:</label>&nbsp;
+                  <input
+                    name="firstName"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="First Name"
+                  />
+                  <br />
+                  <label> Last Name:</label>&nbsp;
+                  <input
+                    name="lastName"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Last Name"
+                  />
+                  <br />
+                  <label>E-mail:</label>&nbsp;
+                  <input
+                    name="emaiol"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="E-mail"
+                  />
+                  <br />
+                  <label> Phone Number:</label>&nbsp;
+                  <input
+                    name="phoneNumber"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Phone Number"
+                  />
+                  <br />
+                  <label>Cell Phone:</label>&nbsp;
+                  <input
+                    name="cellNumber"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Cell Number"
+                  />
+                  <br />
+                  <h3>
+                    <strong>Pet Information</strong>
+                  </h3>
+                  <p>Please fill out all applicable fields</p>
+                  <label> Number of Cats:</label>&nbsp;
+                  <input
+                    name="numberOfCats"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Number of Cats"
+                  />
+                  <br />
+                  <label> Breed:</label>&nbsp;
+                  <input
+                    name="catbreed"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Breed"
+                  />
+                  <br />
+                  <label> Age:</label>&nbsp;
+                  <input
+                    name="catage"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Age"
+                  />
+                  <br />
+                  <label> Weight:</label>&nbsp;
+                  <input
+                    name="catweight"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Weight"
+                  />
+                  <br />
+                  <br />
+                  <label> Number of Dogs:</label>&nbsp;
+                  <input
+                    name="numberOfdogs"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Number of dogs"
+                  />
+                  <br />
+                  <label> Breed:</label>&nbsp;
+                  <input
+                    name="dogbreed"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Breed"
+                  />
+                  <br />
+                  <label> Age:</label>&nbsp;
+                  <input
+                    name="dogage"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Age"
+                  />
+                  <br />
+                  <label> Weight:</label>&nbsp;
+                  <input
+                    name="dogweight"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Weight"
+                  />
+                  <br />
+                  <label>
+                    Any special instructions/medical information we need to know
+                    about your pet(s)?{" "}
+                  </label>
+                  <br />
+                  <textarea
+                    onChange={handleInputChange}
+                    rows="4"
+                    cols="50"
+                    placeholder="Instructions"
+                  ></textarea>
+                  <br />
+                  <br />
+                  <h3>
+                    <strong>Travel Information</strong>
+                  </h3>
+                  <label>Type of Travel</label>
+                  <br />
+                  <select name="traveltype">
+                    <option defaultValue></option>
+                    <option value="1" key="1">
+                      One Way Trip
+                    </option>
+                    <option value="2" key="2">
+                      Two Way Trip
+                    </option>
+                  </select>
+                  <br />
+                  <label>Date of Travel</label>
+                  <br />
+                  <input
+                    name="departDate"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Departure Date"
+                  />
+                  <br />
+                  <label>Date of Return</label>
+                  <br />
+                  <input
+                    name="returnDate"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Return Date"
+                  />
+                  <br />
+                  <br />
+                  <br />
+                  <h3>
+                    <strong>Pickup Address</strong>
+                  </h3>
+                  <label>Address Line 1</label>
+                  <br />
+                  <input
+                    name="pickupAddress1"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Address 1"
+                  />
+                  <br />
+                  <label>Address Line 2</label>
+                  <br />
+                  <input
+                    name="pickupAddress2"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Address 2"
+                  />
+                  <br />
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label>City</label>
+                        </td>
+                        <td>
+                          <label>State</label>
+                        </td>
+                        <td>
+                          <label>Zip</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input
+                            name="pickupCity"
+                            onChange={handleInputChange}
+                            type="text"
+                            placeholder="City"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            name="pickupState"
+                            onChange={handleInputChange}
+                            type="text"
+                            placeholder="State"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            name="pickupZip"
+                            onChange={handleInputChange}
+                            type="text"
+                            placeholder="Zip"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br />
+                  <br />
+                  <h3>
+                    <strong>Destination Address</strong>
+                  </h3>
+                  <label>Address Line 1</label>
+                  <br />
+                  <input
+                    name="destAddress1"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Address 1"
+                  />
+                  <br />
+                  <label>Address Line 2</label>
+                  <br />
+                  <input
+                    name="destAddress2"
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="Address 2"
+                  />
+                  <br />
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label>City</label>
+                        </td>
+                        <td>
+                          <label>State</label>
+                        </td>
+                        <td>
+                          <label>Zip</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input
+                            name="destCity"
+                            onChange={handleInputChange}
+                            type="text"
+                            placeholder="City"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            name="destState"
+                            onChange={handleInputChange}
+                            type="text"
+                            placeholder="State"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            name="destZip"
+                            onChange={handleInputChange}
+                            type="text"
+                            placeholder="Zip"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            name="otherInfo"
+                            onChange={handleInputChange}
+                            type="text"
+                            placeholder="Zip"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br />
+                  <button
+                    type="button"
+                    id="createQuote"
+                    onClick={(e) => handleFormSubmit(e)}
+                  >
+                    Submit
+                  </button>
                 </form>
               </div>
             </td>
