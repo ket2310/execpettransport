@@ -83,8 +83,48 @@ const resolvers = {
 
     createQuote: async (parent, { petowner, travel }) => {
       const quote = await Quote.create({ petowner, travel });
-      quote.petowner = PetOwner.create;
-      lesson.rider = await Rider.findOne({ _id: rider._id });
+      quote.petowner = await PetOwner.create({
+        firstname,
+        lastname,
+        email,
+        phonenumber,
+        cellnumber,
+        instructions, 
+        cats,
+        dogs,
+      });
+ 
+      quote.petowner.cats = await Cat.create({
+        breed,
+        quantity,
+        age,
+        weight,
+      });
+ 
+      quote.petowner.dogs = await Dog.create({
+        breed,
+        quantity,
+        age,
+        weight,
+      });
+      
+      quote.travel = await Travel.create({
+        traveltype,
+        traveldate,
+        returndate,
+        pickupaddress,
+        pickupaddress2,
+        pickupcity,
+        pickupstate,
+        pickupzip,
+        destinationaddress,
+        destinationaddress2,
+        destinationcity,
+        destinationstate,
+        destinationzip,
+        otherinfo
+      });
+
       return { quote };
     },
   },

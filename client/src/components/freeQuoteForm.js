@@ -155,7 +155,7 @@ function FreeQuoteForm() {
                   <br />
                   <label>E-mail:</label>&nbsp;
                   <input
-                    name="emaiol"
+                    name="email"
                     onChange={handleInputChange}
                     type="text"
                     placeholder="E-mail"
