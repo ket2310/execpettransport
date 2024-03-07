@@ -49,6 +49,7 @@ function FreeQuoteForm() {
   const handleInputChange = (e) => {
     //grab the name and value from item changed
     const { name, value } = e.target;
+    console.log(name + " " + value);
     setFormData({ ...formData, [name]: value });
   };
   return (

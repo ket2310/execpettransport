@@ -83,6 +83,8 @@ const resolvers = {
 
     createQuote: async (parent, { petowner, travel }) => {
       const quote = await Quote.create({ petowner, travel });
+      quote.petowner = PetOwner.create;
+      lesson.rider = await Rider.findOne({ _id: rider._id });
       return { quote };
     },
   },
