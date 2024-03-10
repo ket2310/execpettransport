@@ -49,7 +49,7 @@ const typeDefs = gql`
   }
 
   input petownerdata {
-    _id: ID
+    # _id: ID
     firstname: String
     lastname: String
     email: String
@@ -61,7 +61,7 @@ const typeDefs = gql`
   }
 
   input catData {
-    _id: ID
+    #_id: ID
     breed: String
     quantity: Int
     age: Int
@@ -69,7 +69,7 @@ const typeDefs = gql`
   }
 
   input dogData {
-    _id: ID
+    # _id: ID
     breed: String
     quantity: Int
     age: Int
@@ -77,7 +77,7 @@ const typeDefs = gql`
   }
 
   input travelData {
-    _id: ID
+    # _id: ID
     traveltype: String
     traveldate: date
     returndate: date
@@ -117,27 +117,13 @@ const typeDefs = gql`
 
   type Mutation {
     createQuote(petowner: petownerdata, travel: travelData): Quote
+    createPetowner(owner: petownerdata): PetOwner
 
-    createCat(breed: String!, quantity: Int!, age: Int!, weight: Int): Cat
+    createCat(cat: catData): Cat
 
-    createDog(breed: String!, quantity: Int!, age: Int!, weight: Int): Dog
+    createDog(dog: dogData): Dog
 
-    createTrip(
-      traveltype: String
-      traveldate: date
-      returndate: date
-      pickupaddress: String
-      pickupaddress2: String
-      pickupcity: String
-      pickupstate: String
-      pickupzip: String
-      destinationaddress: String
-      destinationaddress2: String
-      destinationcity: String
-      destinationstate: String
-      destinationzip: String
-      otherinfo: String
-    ): Travel
+    createTrip(trip: travelData): Travel
   }
 `;
 

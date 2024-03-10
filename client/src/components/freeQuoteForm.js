@@ -6,8 +6,33 @@ import { CREATE_QUOTE } from "../utils/mutations";
 
 function FreeQuoteForm() {
   const [formData, setFormData] = useState({
-    petowner: {},
-    travel: {},
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    cellNumber: "",
+    instructions: "",
+    numberOfCats: "",
+    catbreed: "",
+    catage: "",
+    catweight: "",
+    numberOfDogs: "",
+    dogbreed: "",
+    dogage: "",
+    dogweight: "",
+    travelType: "",
+    departDate: "",
+    returnDate: "",
+    pickupAddress1: "",
+    pickupAddress2: "",
+    pickupCity: "",
+    pickupState: "",
+    pickupZip: "",
+    destAddress1: "",
+    destAddress2: "",
+    destCity: "",
+    destState: "",
+    destZip: "",
   });
 
   const [createQuote] = useMutation(CREATE_QUOTE, {
@@ -31,7 +56,6 @@ function FreeQuoteForm() {
       const { loading } = await createQuote({
         variables: {
           ...formData,
-          firstName: formData.firstName,
         },
       });
       // If it's not loading close modal and then set formData back to empty
@@ -51,6 +75,7 @@ function FreeQuoteForm() {
     const { name, value } = e.target;
     console.log(name + " " + value);
     setFormData({ ...formData, [name]: value });
+    console.log(formData);
   };
   return (
     <div>
@@ -417,12 +442,14 @@ function FreeQuoteForm() {
                             placeholder="Zip"
                           />
                         </td>
+                      </tr>
+                      <tr>
                         <td>
                           <input
                             name="otherInfo"
                             onChange={handleInputChange}
                             type="text"
-                            placeholder="Zip"
+                            placeholder="Other Information"
                           />
                         </td>
                       </tr>

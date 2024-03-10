@@ -89,41 +89,41 @@ const resolvers = {
         email,
         phonenumber,
         cellnumber,
-        instructions, 
+        instructions,
         cats,
         dogs,
       });
- 
-      quote.petowner.cats = await Cat.create({
-        breed,
-        quantity,
-        age,
-        weight,
-      });
- 
-      quote.petowner.dogs = await Dog.create({
-        breed,
-        quantity,
-        age,
-        weight,
-      });
-      
-      quote.travel = await Travel.create({
-        traveltype,
-        traveldate,
-        returndate,
-        pickupaddress,
-        pickupaddress2,
-        pickupcity,
-        pickupstate,
-        pickupzip,
-        destinationaddress,
-        destinationaddress2,
-        destinationcity,
-        destinationstate,
-        destinationzip,
-        otherinfo
-      });
+
+      // quote.petowner.cats = await Cat.create({
+      //   breed,
+      //   quantity,
+      //   age,
+      //   weight,
+      // });
+
+      // quote.petowner.dogs = await Dog.create({
+      //   breed,
+      //   quantity,
+      //   age,
+      //   weight,
+      // });
+
+      // quote.travel = await Travel.create({
+      //   traveltype,
+      //   traveldate,
+      //   returndate,
+      //   pickupaddress,
+      //   pickupaddress2,
+      //   pickupcity,
+      //   pickupstate,
+      //   pickupzip,
+      //   destinationaddress,
+      //   destinationaddress2,
+      //   destinationcity,
+      //   destinationstate,
+      //   destinationzip,
+      //   otherinfo
+      // });
 
       return { quote };
     },

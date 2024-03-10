@@ -1,23 +1,19 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_CAT = gql`
-  mutation createCat($breed: String, $quantity: Int, $age: Int, $weight: Int) {
-    createCat(breed: $breed, quantity: $quantity, age: $age, weight: $weight) {
-      breed
+  mutation createCat($cat: catData!) {
+    travelingCat(catInfo: $cat) {
       quantity
-      age
-      weight
+      breed
     }
   }
 `;
 
 export const CREATE_DOG = gql`
-  mutation createDog($breed: String, $quantity: Int, $age: Int, $weight: Int) {
-    createCat(breed: $breed, quantity: $quantity, age: $age, weight: $weight) {
-      breed
+  mutation createDog($dog: dogData!) {
+    travelingDog(dogInfo: $dog) {
       quantity
-      age
-      weight
+      breed
     }
   }
 `;
@@ -25,46 +21,24 @@ export const CREATE_DOG = gql`
 export const CREATE_QUOTE = gql`
   mutation createQuote($petowner: petownerdata, $travel: travelData) {
     createQuote(petowner: $petowner, travel: $travel) {
-      petowner {
-        firstname
-        lastname
-        email
-        phonenumber
-        cellnumber
-        instructions
-        cat {
-          breed
-          quantity
-          age
-          weight
-        }
-        dog {
-          Breed
-          quantity
-          age
-          weight
-        }
-        travel {
-          traveltype
-          traveldate
-          returndate
-          pickupaddress
-          pickupaddress2
-          pickupcity
-          pickupstate
-          pickupzip
-          destinationaddress
-          destinationaddress2
-          destinationcity
-          destinationstate
-          destinationzip
-          otherinfo
-        }
-      }
+      firstname
+      lastname
+      email
+      phonenumber
     }
   }
 `;
 
+export const CREATE_OWNER = gql`
+  mutation createOwner($petowner: petownerdata) {
+    createOwner(petowner: $petowner) {
+      firstname
+      lastname
+      email
+      phonenumber
+    }
+  }
+`;
 export const CREATE_TRIP = gql`
   mutation createTrip(
     $traveltype: String
