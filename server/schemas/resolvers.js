@@ -39,7 +39,9 @@ const resolvers = {
     },
 
     petowner: async (parent, { petownerId }) => {
-      return PetOwner.findOne(ObjectId(petownerId));
+      return PetOwner.findOne(ObjectId(petownerId))
+        .populate("Cat")
+        .populate("Dog");
     },
 
     petowners: async () => {
@@ -59,7 +61,12 @@ const resolvers = {
     },
 
     quotes: async () => {
-      return Quote.find({});
+      console.log("HELP MEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+      console.log(Quote);
+      const q = Quote.find({}).populate("petowner");
+
+      console.log(q);
+      return Quote.find({}).populate("petowner");
     },
   },
 
@@ -81,51 +88,12 @@ const resolvers = {
       return { dog };
     },
 
-    createQuote: async (parent, { petowner, travel }) => {
-      const quote = await Quote.create({ petowner, travel });
-      quote.petowner = await PetOwner.create({
-        firstname,
-        lastname,
-        email,
-        phonenumber,
-        cellnumber,
-        instructions,
-        cats,
-        dogs,
-      });
+    createQuote: (parent, args) => {
+      console.log("sanity check");
+      const quote = args.petowner;
+      const travel = args.travel;
 
-      // quote.petowner.cats = await Cat.create({
-      //   breed,
-      //   quantity,
-      //   age,
-      //   weight,
-      // });
-
-      // quote.petowner.dogs = await Dog.create({
-      //   breed,
-      //   quantity,
-      //   age,
-      //   weight,
-      // });
-
-      // quote.travel = await Travel.create({
-      //   traveltype,
-      //   traveldate,
-      //   returndate,
-      //   pickupaddress,
-      //   pickupaddress2,
-      //   pickupcity,
-      //   pickupstate,
-      //   pickupzip,
-      //   destinationaddress,
-      //   destinationaddress2,
-      //   destinationcity,
-      //   destinationstate,
-      //   destinationzip,
-      //   otherinfo
-      // });
-
-      return { quote };
+      console.log(quote + "\n" + travel);
     },
   },
 };

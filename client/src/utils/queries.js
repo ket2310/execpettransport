@@ -66,22 +66,22 @@ export const QUERY_QUOTES = gql`
         lastname
         email
         phonenumber
-        cellNumber
+        cellnumber
         instructions
-      }
-      cat {
-        _id
-        breed
-        quantity
-        age
-        weight
-      }
-      dog {
-        _id
-        breed
-        quantity
-        age
-        weight
+        cats {
+          _id
+          breed
+          quantity
+          age
+          weight
+        }
+        dogs {
+          _id
+          breed
+          quantity
+          age
+          weight
+        }
       }
       travel {
         _id
@@ -89,8 +89,8 @@ export const QUERY_QUOTES = gql`
         traveldate
         returndate
         pickupaddress
-        pickupAddress2
-        pickupCity
+        pickupaddress2
+        pickupcity
         pickupstate
         pickupzip
         destinationaddress
