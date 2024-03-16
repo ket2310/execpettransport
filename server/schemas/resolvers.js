@@ -6,20 +6,20 @@ const { ObjectId } = require("mongodb");
 
 const resolvers = {
   Query: {
-    users: async () => {
-      return User.find({});
-    },
+    // users: async () => {
+    //   return User.find({});
+    // },
 
-    user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId });
-    },
+    // user: async (parent, { userId }) => {
+    //   return User.findOne({ _id: userId });
+    // },
 
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id });
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
+    // me: async (parent, args, context) => {
+    //   if (context.user) {
+    //     return User.findOne({ _id: context.user._id });
+    //   }
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
     ///////////////////////////////////////////////////////////////
 
     cat: async (parent, { catId }) => {
@@ -62,21 +62,21 @@ const resolvers = {
 
     quotes: async () => {
       console.log("HELP MEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-      console.log(Quote);
+      //  console.log(Quote);
       const q = Quote.find({}).populate("petowner");
 
-      console.log(q);
+      //console.log(q);
       return Quote.find({}).populate("petowner");
     },
   },
 
   Mutation: {
-    createUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
+    // createUser: async (parent, { username, email, password }) => {
+    //   const user = await User.create({ username, email, password });
+    //   const token = signToken(user);
 
-      return { token, user };
-    },
+    //   return { token, user };
+    // },
 
     createCat: async (parent, { breed, quantity, age, weight }) => {
       const cat = await Cat.create({ breed, quantity, age, weight });
@@ -90,10 +90,12 @@ const resolvers = {
 
     createQuote: (parent, args) => {
       console.log("sanity check");
-      const quote = args.petowner;
-      const travel = args.travel;
+      const petowner = args.petowner;
+      console.log(petowner);
 
-      console.log(quote + "\n" + travel);
+      //  const quote = Quote.create(agrs.petowner, args.travel);
     },
   },
 };
+
+module.exports = resolvers;

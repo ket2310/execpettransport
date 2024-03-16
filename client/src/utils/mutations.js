@@ -19,14 +19,12 @@ export const CREATE_DOG = gql`
 `;
 
 export const CREATE_QUOTE = gql`
-  mutation createQuote($petowner: petownerdata, $travel: travelData) {
-    createQuote(petowner: $petowner, travel: $travel) {
-      petowner {
-        firstname
-        lastname
-        email
-        phonenumber
-      }
+  mutation createQuote($quoteData: quoteData) {
+    createQuote(input: $quoteData) {
+      firstname
+      lastname
+      email
+      phonenumber
     }
   }
 `;

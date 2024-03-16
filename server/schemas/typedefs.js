@@ -62,18 +62,18 @@ const typeDefs = gql`
 
   input catData {
     #_id: ID
-    breed: String
-    quantity: Int
-    age: Int
-    weight: Int
+    catbreed: String
+    catquantity: Int
+    catage: Int
+    catweight: Int
   }
 
   input dogData {
     # _id: ID
-    breed: String
-    quantity: Int
-    age: Int
-    weight: Int
+    dogbreed: String
+    dogquantity: Int
+    dogage: Int
+    dogweight: Int
   }
 
   input travelData {
@@ -95,9 +95,63 @@ const typeDefs = gql`
   }
   type Quote {
     _id: ID!
-    petowner: PetOwner!
-    travel: Travel!
+    firstname: String
+    lastname: String
+    email: String
+    phonenumber: String
+    cellnumber: String
+    instructions: String
+    catbreed: String
+    catquantity: Int
+    catage: Int
+    dogbreed: String
+    dogquantity: Int
+    dogage: Int
+    traveltype: String
+    traveldate: date
+    returndate: date
+    pickupaddress: String
+    pickupaddress2: String
+    pickupcity: String
+    pickupstate: String
+    pickupzip: String
+    destinationaddress: String
+    destinationaddress2: String
+    destinationcity: String
+    destinationstate: String
+    destinationzip: String
+    otherinfo: String
   }
+
+  input quoteData {
+    firstname: String
+    lastname: String
+    email: String
+    phonenumber: String
+    cellnumber: String
+    instructions: String
+    catbreed: String
+    catquantity: Int
+    catage: Int
+    dogbreed: String
+    dogquantity: Int
+    dogage: Int
+    traveltype: String
+    traveldate: date
+    returndate: date
+    pickupaddress: String
+    pickupaddress2: String
+    pickupcity: String
+    pickupstate: String
+    pickupzip: String
+    destinationaddress: String
+    destinationaddress2: String
+    destinationcity: String
+    destinationstate: String
+    destinationzip: String
+    otherinfo: String
+  }
+
   type Query {
     petowners: [PetOwner]
     petowner(petownerId: ID!): PetOwner
@@ -116,7 +170,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createQuote(petowner: petownerdata, travel: travelData): Quote
+    createQuote(input: quoteData): Quote
     createPetowner(owner: petownerdata): PetOwner
 
     createCat(cat: catData): Cat

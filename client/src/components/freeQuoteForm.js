@@ -6,35 +6,38 @@ import { CREATE_QUOTE } from "../utils/mutations";
 
 function FreeQuoteForm() {
   const { loading, data } = useQuery(QUERY_QUOTES);
-  const allquotes = data?.quotes | [];
+
+  if (!loading) {
+    console.log("Loading.....");
+    console.log(data);
+  }
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    phoneNumber: "",
-    cellNumber: "",
+    phonenumber: "",
+    cellnumber: "",
     instructions: "",
-    numberOfCats: "",
     catbreed: "",
-    catage: "",
-    catweight: "",
-    numberOfDogs: "",
+    catquantity: 0,
+    catage: 0,
     dogbreed: "",
-    dogage: "",
-    dogweight: "",
-    travelType: "",
-    departDate: "",
-    returnDate: "",
-    pickupAddress1: "",
-    pickupAddress2: "",
-    pickupCity: "",
-    pickupState: "",
-    pickupZip: "",
-    destAddress1: "",
-    destAddress2: "",
-    destCity: "",
-    destState: "",
-    destZip: "",
+    dogquantity: 0,
+    dogage: 0,
+    traveltype: "",
+    traveldate: "",
+    returndate: "",
+    pickupaddress: "",
+    pickupaddress2: "",
+    pickupcity: "",
+    pickupstate: "",
+    pickupzip: "",
+    destinationaddress: "",
+    destinationaddress2: "",
+    destinationcity: "",
+    destinationstate: "",
+    destinationzip: "",
+    otherinfo: "",
   });
 
   const [createQuote] = useMutation(CREATE_QUOTE, {
@@ -56,41 +59,42 @@ function FreeQuoteForm() {
     //try to book a lesson with formdata state and other variables
     console.log(formData);
     try {
+      console.log("Test 1");
       const { loading } = await createQuote({
         variables: {
           ...formData,
         },
       });
+      console.log("Test 2");
       // If it's not loading close modal and then set formData back to empty
       if (!loading) {
         setFormData({
-          firstName: "",
-          lastName: "",
+          firstname: "",
+          lastname: "",
           email: "",
-          phoneNumber: "",
-          cellNumber: "",
+          phonenumber: "",
+          cellnumber: "",
           instructions: "",
-          numberOfCats: "",
           catbreed: "",
-          catage: "",
-          catweight: "",
-          numberOfDogs: "",
+          catquantity: 0,
+          catage: 0,
           dogbreed: "",
-          dogage: "",
-          dogweight: "",
-          travelType: "",
-          departDate: "",
-          returnDate: "",
-          pickupAddress1: "",
-          pickupAddress2: "",
-          pickupCity: "",
-          pickupState: "",
-          pickupZip: "",
-          destAddress1: "",
-          destAddress2: "",
-          destCity: "",
-          destState: "",
-          destZip: "",
+          dogquantity: 0,
+          dogage: 0,
+          traveltype: "",
+          traveldate: "",
+          returndate: "",
+          pickupaddress: "",
+          pickupaddress2: "",
+          pickupcity: "",
+          pickupstate: "",
+          pickupzip: "",
+          destinationaddress: "",
+          destinationaddress2: "",
+          destinationcity: "",
+          destinationstate: "",
+          destinationzip: "",
+          otherinfo: "",
         });
       }
     } catch (err) {
@@ -192,6 +196,14 @@ function FreeQuoteForm() {
                   <div>Loading...</div>
                 ) : (
                   <form onSubmit={handleFormSubmit}>
+                    <button
+                      type="button"
+                      id="createQuote2"
+                      onClick={(e) => handleFormSubmit(e)}
+                    >
+                      Submit
+                    </button>
+                    <br />
                     <label> First Name:</label>&nbsp;
                     <input
                       name="firstName"
