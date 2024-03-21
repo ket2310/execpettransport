@@ -12,32 +12,8 @@ function FreeQuoteForm() {
     console.log(data);
   }
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phonenumber: "",
-    cellnumber: "",
-    instructions: "",
-    catbreed: "",
-    catquantity: 0,
-    catage: 0,
-    dogbreed: "",
-    dogquantity: 0,
-    dogage: 0,
-    traveltype: "",
-    traveldate: "",
-    returndate: "",
-    pickupaddress: "",
-    pickupaddress2: "",
-    pickupcity: "",
-    pickupstate: "",
-    pickupzip: "",
-    destinationaddress: "",
-    destinationaddress2: "",
-    destinationcity: "",
-    destinationstate: "",
-    destinationzip: "",
-    otherinfo: "",
+    petowner: {},
+    travel: {},
   });
 
   const [createQuote] = useMutation(CREATE_QUOTE, {
@@ -63,38 +39,15 @@ function FreeQuoteForm() {
       const { loading } = await createQuote({
         variables: {
           ...formData,
+          petowner: { firstname: "Kirk" },
         },
       });
       console.log("Test 2");
       // If it's not loading close modal and then set formData back to empty
       if (!loading) {
         setFormData({
-          firstname: "",
-          lastname: "",
-          email: "",
-          phonenumber: "",
-          cellnumber: "",
-          instructions: "",
-          catbreed: "",
-          catquantity: 0,
-          catage: 0,
-          dogbreed: "",
-          dogquantity: 0,
-          dogage: 0,
-          traveltype: "",
-          traveldate: "",
-          returndate: "",
-          pickupaddress: "",
-          pickupaddress2: "",
-          pickupcity: "",
-          pickupstate: "",
-          pickupzip: "",
-          destinationaddress: "",
-          destinationaddress2: "",
-          destinationcity: "",
-          destinationstate: "",
-          destinationzip: "",
-          otherinfo: "",
+          petowner: {},
+          travel: {},
         });
       }
     } catch (err) {

@@ -19,8 +19,8 @@ export const CREATE_DOG = gql`
 `;
 
 export const CREATE_QUOTE = gql`
-  mutation createQuote($quoteData: quoteData) {
-    createQuote(input: $quoteData) {
+  mutation createQuote($petowner: petownerdata, $travel: travelData) {
+    createQuote(petowner: $petowner, travel: $travel) {
       firstname
       lastname
       email

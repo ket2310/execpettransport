@@ -95,63 +95,9 @@ const typeDefs = gql`
   }
   type Quote {
     _id: ID!
-    firstname: String
-    lastname: String
-    email: String
-    phonenumber: String
-    cellnumber: String
-    instructions: String
-    catbreed: String
-    catquantity: Int
-    catage: Int
-    dogbreed: String
-    dogquantity: Int
-    dogage: Int
-    traveltype: String
-    traveldate: date
-    returndate: date
-    pickupaddress: String
-    pickupaddress2: String
-    pickupcity: String
-    pickupstate: String
-    pickupzip: String
-    destinationaddress: String
-    destinationaddress2: String
-    destinationcity: String
-    destinationstate: String
-    destinationzip: String
-    otherinfo: String
+    petowner: PetOwner!
+    travel: Travel!
   }
-
-  input quoteData {
-    firstname: String
-    lastname: String
-    email: String
-    phonenumber: String
-    cellnumber: String
-    instructions: String
-    catbreed: String
-    catquantity: Int
-    catage: Int
-    dogbreed: String
-    dogquantity: Int
-    dogage: Int
-    traveltype: String
-    traveldate: date
-    returndate: date
-    pickupaddress: String
-    pickupaddress2: String
-    pickupcity: String
-    pickupstate: String
-    pickupzip: String
-    destinationaddress: String
-    destinationaddress2: String
-    destinationcity: String
-    destinationstate: String
-    destinationzip: String
-    otherinfo: String
-  }
-
   type Query {
     petowners: [PetOwner]
     petowner(petownerId: ID!): PetOwner
@@ -170,7 +116,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createQuote(input: quoteData): Quote
+    createQuote(petowner: petownerdata, travel: travelData): Quote
     createPetowner(owner: petownerdata): PetOwner
 
     createCat(cat: catData): Cat
