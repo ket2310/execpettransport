@@ -88,10 +88,11 @@ const resolvers = {
       return { dog };
     },
 
-    createQuote: (parent, args) => {
+    createQuote: async (parent, args) => {
       console.log("sanity check");
+      // const q = await Quote.create({ args });
       const petowner = args.petowner;
-      console.log(petowner);
+      console.log(args);
 
       //  const quote = Quote.create(agrs.petowner, args.travel);
     },
