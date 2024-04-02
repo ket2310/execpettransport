@@ -63,10 +63,10 @@ const resolvers = {
     quotes: async () => {
       console.log("HELP MEEEEEEEEEEEEEEEEEEEEEEEEEEE");
       //  console.log(Quote);
-      const q = Quote.find({}).populate("petowner");
+      // const q = Quote.find({}).populate("petowner");
 
-      //console.log(q);
-      return Quote.find({}).populate("petowner");
+      // //console.log(q);
+      // return Quote.find({}).populate("petowner");
     },
   },
 

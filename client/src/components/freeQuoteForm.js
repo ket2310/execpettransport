@@ -6,7 +6,6 @@ import { CREATE_QUOTE } from "../utils/mutations";
 
 function FreeQuoteForm() {
   const { loading, data } = useQuery(QUERY_QUOTES);
-
   if (!loading) {
     // console.log("Loading.....");
     // console.log(data);
@@ -21,14 +20,14 @@ function FreeQuoteForm() {
       instructions: "",
       cat: {
         catquantity: 0,
-        catage: 0,
         catbreed: "",
+        catage: 0,
         catweight: 0,
       },
       dog: {
         dogquantity: 0,
-        dogage: 0,
         dogbreed: "",
+        dogage: 0,
         dogweight: 0,
       },
     },
@@ -50,27 +49,98 @@ function FreeQuoteForm() {
     },
   });
 
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phonenumber, setPhonenumnber] = useState("");
+  const [cellnumber, setCellNumber] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [catquantity, setCatQuantity] = useState(0);
+  const [catbreed, setCatBreed] = useState("");
+  const [catage, setCatAge] = useState(0);
+  const [catweight, setCatWeight] = useState(0);
+  const [dogquantity, setDogQuantity] = useState(0);
+  const [dogbreed, setDogBreed] = useState("");
+  const [dogage, setDogAge] = useState(0);
+  const [dogweight, setDogWeight] = useState(0);
+  const [traveltype, setTravelType] = useState("");
+  const [traveldate, setTravelDate] = useState("");
+  const [returndate, setReturnDate] = useState("");
+  const [pickupaddress, setPickupAddress] = useState("");
+  const [pickupaddress2, setPickupAddress2] = useState("");
+  const [pickupcity, setPickupCity] = useState("");
+  const [pickupstate, setPickupState] = useState("");
+  const [pickupzip, setPickupZip] = useState("");
+  
+  const [destinationaddress, setDestinationAddress] = useState("");
+  const [destinationaddress2, setDestinationAddress2] = useState("");
+  const [destinationcity, setDestinationCity] = useState("");
+  const [destinationstate, setDestinationState] = useState("");
+  const [destinationzip, setDestinationZip] = useState("");
+  const [otherinfo, setOtherInfo] = useState("");
+
   const [createQuote] = useMutation(CREATE_QUOTE, {
     update(cache, { data: { createQuote } }) {
       try {
         const { quotes } = cache.readQuery({ query: QUERY_QUOTES });
+        //   console.log(quotes);
 
-        cache.writeQuery({
-          query: QUERY_QUOTES,
-          data: { quotes: [createQuote, ...quotes] },
-        });
+        if (quotes != null) {
+          cache.writeQuery({
+            query: QUERY_QUOTES,
+            data: { quotes: [createQuote, ...quotes] },
+          });
+        }
       } catch (e) {
-        console.error(e);
+        console.log(e);
       }
     },
   });
 
-  const handleFormSubmit = async () => {
-    console.log(formData);
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    //console.log("before submit...");
+    //console.log(formData);
     try {
       const { loading } = await createQuote({
         variables: {
           ...formData,
+          petowner: {
+            firstname: fname,
+            lastname: lname,
+            email: email,
+            phonenumber: phonenumber,
+            cellnumber: cellnumber,
+            instructions: instructions,
+            cat: {
+              catquantity: catquantity,
+              catbreed: catbreed,
+              catage: catage,
+              catweight: catweight,
+            },
+            dog: {
+              dogquantity: dogquantity,
+              dogbreed: dogbreed,
+              dogage: dogage,
+              dogweight: dogweight,
+            },
+          }, 
+          travel: {
+            traveltype: traveltype,
+            traveldate: traveldate,
+            returndate: returndate,
+            pickupaddress: pickupaddress,
+            pickupaddress2: pickupaddress2,
+            pickupcity: pickupcity,
+            pickupstate: pickupstate,
+            pickupzip: pickupzip,
+            destinationaddress2: destinationaddress,
+            destinationaddress: destinationaddress2, 
+            destinationcity: destinationcity,
+            destinationstate: destinationstate,
+            destinationzip: destinationzip,            
+            otherinfo: otherinfo,
+          },
         },
       });
 
@@ -87,14 +157,14 @@ function FreeQuoteForm() {
             instructions: "",
             cat: {
               catquantity: 0,
-              catage: 0,
               catbreed: "",
+              catage: 0,
               catweight: 0,
             },
             dog: {
               dogquantity: 0,
-              dogage: 0,
               dogbreed: "",
+              dogage: 0,
               dogweight: 0,
             },
           },
@@ -121,43 +191,7 @@ function FreeQuoteForm() {
     }
   };
 
-  const handleInputChange = (e) => {
-    //grab the name and value from item changed
-    const { name, value } = e.target;
-    const tmp = name.substr(0, 3);
-
-    // get pet
-    if (tmp === "pet") {
-      setFormData({
-        ...formData,
-        petowner: { [name.substr(3)]: value },
-      });
-      console.log("Test 1");
-      console.log(formData);
-    }
-    // get petcat
-    else if (tmp === "cat" || tmp === "dog") {
-      console.log(name);
-      if (name.substr(3) === "weight") {
-        setFormData({
-          ...formData,
-          petowner: { [tmp]: { [name]: parseInt(value) } },
-        });
-      } else {
-        setFormData({
-          ...formData,
-          petowner: { [tmp]: { [name]: value } },
-        });
-      }
-      console.log("Test 2");
-      console.log(formData);
-    } else {
-      // get travel
-      setFormData({ ...formData, travel: { [name]: value } });
-      console.log("Test 3");
-      console.log(formData);
-    }
-  };
+  
   return (
     <div>
       <h1>
@@ -256,45 +290,40 @@ function FreeQuoteForm() {
                     <br />
                     <label> First Name:</label>&nbsp;
                     <input
-                      name="petfirstname"
-                      onChange={handleInputChange}
+                      name="petowner.firstname"
+                      onChange={(event) => { setFname(event.target.value)}}
                       type="text"
-                      value={formData.petowner.firstname}
                       placeholder="First Name"
                     />
                     <br />
                     <label> Last Name:</label>&nbsp;
                     <input
-                      name="petlastname"
-                      onChange={handleInputChange}
+                      name="petowner.lastname"
+                      onChange={(event)=> { setLname(event.target.value)}}
                       type="text"
-                      value={formData.petowner.lastname}
                       placeholder="Last Name"
                     />
                     <br />
                     <label>E-mail:</label>&nbsp;
                     <input
-                      name="petemail"
-                      value={formData.petowner.email}
-                      onChange={handleInputChange}
+                      name="petowner.email"
+                      onChange={(event)=> { setEmail(event.target.value)}}
                       type="text"
                       placeholder="E-mail"
                     />
                     <br />
                     <label> Phone Number:</label>&nbsp;
                     <input
-                      name="petphonenumber"
-                      onChange={handleInputChange}
+                      name="petowner.phonenumber"
+                      onChange={(event)=> { setPhonenumnber(event.target.value)}}
                       type="text"
-                      value={formData.petowner.phonenumber}
                       placeholder="Phone Number"
                     />
                     <br />
                     <label>Cell Phone:</label>&nbsp;
                     <input
-                      name="petcellnumber"
-                      onChange={handleInputChange}
-                      value={formData.petowner.cellnumber}
+                      name="petowner.cellnumber"
+                      onChange={(event)=> { setCellNumber(event.target.value)}}
                       type="text"
                       placeholder="Cell Number"
                     />
@@ -305,36 +334,32 @@ function FreeQuoteForm() {
                     <p>Please fill out all applicable fields</p>
                     <label> Number of Cats:</label>&nbsp;
                     <input
-                      name="catquantity"
-                      onChange={handleInputChange}
+                      name="petowner.cat.catquantity"
+                      onChange={(event)=> { setCatQuantity(Number( event.target.value))}}
                       type="number"
-                      value={formData.petowner.cat.catquantity}
                       placeholder="Number of Cats"
                     />
                     <br />
                     <label> Breed:</label>&nbsp;
                     <input
-                      name="catbreed"
-                      value={formData.petowner.cat.catbreed}
-                      onChange={handleInputChange}
+                      name="petowner.cat.catbreed"
+                      onChange={(event)=> { setCatBreed(event.target.value)}}
                       type="text"
                       placeholder="Breed"
                     />
                     <br />
                     <label> Age:</label>&nbsp;
                     <input
-                      name="catage"
-                      onChange={handleInputChange}
-                      value={formData.petowner.cat.catage}
+                      name="petowner.cat.catage"
+                      onChange={(event)=> setCatAge(Number(event.target.value))}
                       type="number"
                       placeholder="Age"
                     />
                     <br />
                     <label> Weight:</label>&nbsp;
                     <input
-                      name="catweight"
-                      onChange={handleInputChange}
-                      value={formData.petowner.cat.catweight}
+                      name="petowner.cat.catweight"
+                      onChange={(event) =>  setCatWeight(Number(event.target.value))}
                       type="number"
                       placeholder="Weight"
                     />
@@ -342,36 +367,32 @@ function FreeQuoteForm() {
                     <br />
                     <label> Number of Dogs:</label>&nbsp;
                     <input
-                      name="dogquantity"
-                      onChange={handleInputChange}
+                      name="petowner.dog.dogquantity"
+                      onChange={(event)=> { setDogQuantity(Number(event.target.value))}}
                       type="number"
-                      value={formData.petowner.dog.dogquantity}
                       placeholder="Number of dogs"
                     />
                     <br />
                     <label> Breed:</label>&nbsp;
                     <input
-                      name="dogbreed"
-                      value={formData.petowner.dog.dogbreed}
-                      onChange={handleInputChange}
+                      name="petowner.dog.dogbreed"
+                      onChange={(event)=> { setDogBreed(event.target.value)}}
                       type="text"
                       placeholder="Breed"
                     />
                     <br />
                     <label> Age:</label>&nbsp;
                     <input
-                      name="dogage"
-                      onChange={handleInputChange}
-                      value={formData.petowner.dog.dogage}
+                      name="petowner.dog.dogage"
+                      onChange={(event)=> { setDogAge(Number(event.target.value))}}
                       type="number"
                       placeholder="Age"
                     />
                     <br />
                     <label> Weight:</label>&nbsp;
                     <input
-                      name="dogweight"
-                      onChange={handleInputChange}
-                      value={formData.petowner.dog.dogweight}
+                      name="petowner.dog.dogweight"
+                      onChange={(event)=> { setDogWeight(Number(event.target.value))}}
                       type="number"
                       placeholder="Weight"
                     />
@@ -382,10 +403,9 @@ function FreeQuoteForm() {
                     </label>
                     <br />
                     <textarea
-                      name="petinstructions"
-                      onChange={handleInputChange}
+                      name="petowner.instructions"
+                      onChange={(event)=> { setInstructions(event.target.value)}}
                       rows="4"
-                      value={formData.petowner.instructions}
                       cols="50"
                       placeholder="Instructions"
                     ></textarea>
@@ -396,12 +416,12 @@ function FreeQuoteForm() {
                     </h3>
                     <label>Type of Travel</label>
                     <br />
-                    <select name="traveltype">
-                      <option defaultValue></option>
-                      <option value="One Way Trip" key="1">
+                    <select name="travel.traveltype" onChange={(event)=> {setTravelType(event.target.value)}}>                      
+                      <option defaultValue>-- SELECT -- </option>
+                      <option value="OneWay" key="1">
                         One Way Trip
                       </option>
-                      <option value="Two Way Trip" key="2">
+                      <option value="TwoWa" key="2">
                         Two Way Trip
                       </option>
                     </select>
@@ -409,9 +429,8 @@ function FreeQuoteForm() {
                     <label>Date of Travel</label>
                     <br />
                     <input
-                      name="departDate"
-                      value={formData.travel.traveldate}
-                      onChange={handleInputChange}
+                      name="travel.traveldate"
+                      onChange={(event)=> { setTravelDate(event.target.value)}}
                       type="text"
                       placeholder="Departure Date"
                     />
@@ -419,9 +438,8 @@ function FreeQuoteForm() {
                     <label>Date of Return</label>
                     <br />
                     <input
-                      name="returnDate"
-                      value={formData.travel.returndate}
-                      onChange={handleInputChange}
+                      name="travel.returndate"
+                      onChange={(event)=> { setReturnDate(event.target.value)}}
                       type="text"
                       placeholder="Return Date"
                     />
@@ -434,19 +452,17 @@ function FreeQuoteForm() {
                     <label>Address Line 1</label>
                     <br />
                     <input
-                      name="pickupAddress1"
-                      onChange={handleInputChange}
+                      name="travel.pickupAaddress"
+                      onChange={(event)=> { setPickupAddress(event.target.value)}}
                       type="text"
-                      value={formData.travel.pickupaddress}
                       placeholder="Address 1"
                     />
                     <br />
                     <label>Address Line 2</label>
                     <br />
                     <input
-                      name="pickupAddress2"
-                      onChange={handleInputChange}
-                      value={formData.travel.pickupaddress2}
+                      name="travel.pickupaddress2"
+                      onChange={(event)=> { setPickupAddress2(event.target.value)}}
                       type="text"
                       placeholder="Address 2"
                     />
@@ -467,28 +483,25 @@ function FreeQuoteForm() {
                         <tr>
                           <td>
                             <input
-                              name="pickupCity"
-                              onChange={handleInputChange}
+                              name="travel.pickupcity"
+                              onChange={(event)=> { setPickupCity(event.target.value)}}
                               type="text"
-                              value={formData.travel.pickupcity}
                               placeholder="City"
                             />
                           </td>
                           <td>
                             <input
-                              name="pickupstate"
-                              onChange={handleInputChange}
-                              value={formData.travel.pickupstate}
+                              name="travel.pickupstate"
+                              onChange={(event)=> { setPickupState(event.target.value)}}
                               type="text"
                               placeholder="State"
                             />
                           </td>
                           <td>
                             <input
-                              name="pickupZip"
-                              onChange={handleInputChange}
+                              name="travel.pickupzip"
+                              onChange={(event)=> { setPickupZip(event.target.value)}}
                               type="text"
-                              value={formData.travel.pickupzip}
                               placeholder="Zip"
                             />
                           </td>
@@ -503,9 +516,8 @@ function FreeQuoteForm() {
                     <label>Address Line 1</label>
                     <br />
                     <input
-                      name="destAddress1"
-                      onChange={handleInputChange}
-                      value={formData.travel.destinationaddress}
+                      name="travel.destinationaddress"
+                      onChange={(event)=> { setDestinationAddress(event.target.value)}}
                       type="text"
                       placeholder="Address 1"
                     />
@@ -513,10 +525,9 @@ function FreeQuoteForm() {
                     <label>Address Line 2</label>
                     <br />
                     <input
-                      name="destAddress2"
-                      onChange={handleInputChange}
+                      name="travel.destinationaddress2"
+                      onChange={(event)=> { setDestinationAddress2(event.target.value)}}
                       type="text"
-                      value={formData.travel.destinationaddress2}
                       placeholder="Address 2"
                     />
                     <br />
@@ -536,27 +547,24 @@ function FreeQuoteForm() {
                         <tr>
                           <td>
                             <input
-                              name="destCity"
-                              onChange={handleInputChange}
-                              value={formData.travel.destinationcity}
+                              name="travel.destinationcity"
+                              onChange={(event)=> { setDestinationCity(event.target.value)}}
                               type="text"
                               placeholder="City"
                             />
                           </td>
                           <td>
                             <input
-                              name="destState"
-                              onChange={handleInputChange}
-                              value={formData.travel.destinationstate}
+                              name="travel.destinationstate"
+                              onChange={(event)=> { setDestinationState(event.target.value)}}
                               type="text"
                               placeholder="State"
                             />
                           </td>
                           <td>
                             <input
-                              name="destinationzip"
-                              onChange={handleInputChange}
-                              value={formData.travel.destinationzip}
+                              name="travel.destinationzip"
+                              onChange={(event)=> { setDestinationZip(event.target.value)}}
                               type="text"
                               placeholder="Zip"
                             />
@@ -565,9 +573,8 @@ function FreeQuoteForm() {
                         <tr>
                           <td>
                             <input
-                              name="otherinfo"
-                              onChange={handleInputChange}
-                              value={formData.travel.otherinfo}
+                              name="travel.otherinfo"
+                              onChange={(event)=> { setOtherInfo(event.target.value)}}
                               type="text"
                               placeholder="Other Information"
                             />
