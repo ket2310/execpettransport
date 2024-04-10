@@ -90,13 +90,22 @@ const resolvers = {
 
     createQuote: async (parent, args) => {
       console.log("sanity check");
-      // const q = await Quote.create({ args });
-      const petowner = args.petowner;
-      console.log(args);
-
-      //  const quote = Quote.create(agrs.petowner, args.travel);
+      console.log(args.petowner);
+      const q = await Quote.insertOne(
+        args.petowner
+          .insertOne(args.petowner.cat, (err) => {
+            if (err) throw err;
+          })
+          .insertOne(args.petowner.dog, (err) => {
+            if (err) throw err;
+          }),
+        args.travel,
+        (err) => {
+          if (err) throw err;
+        }
+      );
+      console.log(q);
     },
   },
 };
-
 module.exports = resolvers;

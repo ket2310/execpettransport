@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { ApolloServer } = require("apollo-server-express");
-//const db = require("./config/connection");
+const db = require("./config/connection");
 const { typeDefs, resolvers } = require("./schemas");
 //const { authMiddleware } = require("./utils/auth");
 
@@ -32,11 +32,11 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const timestamp = moment().format("MMMM Do YYYY, h:mm:ss a");
-//db.once("open", () => {
+db.once("open", () => {
   app.listen(PORT, () => {
     console.log(timestamp);
     console.log(`API server running on port ${PORT}!`);
     // log where we can go to test our GQL API
     console.log(`Use GraphQL at http://127.0.0.1:${PORT}${server.graphqlPath}`);
   });
-//  });
+});
