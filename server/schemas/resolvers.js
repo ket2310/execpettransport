@@ -3,6 +3,7 @@ const { PetOwner, Cat, Dog, Travel, Quote } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 //const { signToken } = require("../utils/auth");
 const { ObjectId } = require("mongodb");
+const { emit } = require("../models/Cat");
 
 const resolvers = {
   Query: {
@@ -88,23 +89,72 @@ const resolvers = {
       return { dog };
     },
 
-    createQuote: async (parent, args) => {
+    createQuote: async (parent, { petowner, travel }) => {
       console.log("sanity check");
-      console.log(args.petowner);
-      const q = await Quote.insertOne(
-        args.petowner
-          .insertOne(args.petowner.cat, (err) => {
-            if (err) throw err;
-          })
-          .insertOne(args.petowner.dog, (err) => {
-            if (err) throw err;
-          }),
-        args.travel,
-        (err) => {
-          if (err) throw err;
-        }
-      );
-      console.log(q);
+
+      /////////////////////////////////////////////////////////////////
+      // Create a new quote
+      const quote = new Quote();
+
+      const cat = new Cat({
+        catbreed: petowner.cat.catbreed,
+        catquantity: petowner.cat.catquantity,
+        catage: petowner.cat.catage,
+        catweight: petowner.cat.catweight,
+      });
+
+      const dog = new Dog({
+        dogbreed: petowner.dog.dogbreed,
+        dogquantity: petowner.dog.dogquantity,
+        dogage: petowner.dog.dogage,
+        dogweight: petowner.dog.dogweight,
+      });
+
+      // Create a new petowner for the quote
+      const owner = new PetOwner({
+        firstname: petowner.firstname,
+        lastname: petowner.lastname,
+        email: petowner.email,
+        phonenumber: petowner.phonenumber,
+        cellnumber: petowner.cellnumber,
+        instructions: petowner.instructions,
+      });
+
+      const trip = new Travel({
+        traveltype: travel.traveltype,
+        traveldate: travel.traveldate,
+        returndate: travel.returndate,
+        pickupaddress: travel.pickupaddress,
+        pickupaddress2: travel.pickupaddress2,
+        pickupcity: travel.pickupcity,
+        pickupstate: travel.pickupstate,
+        pickupzip: travel.pickupzip,
+        destinationaddress2: travel.destinationaddress,
+        destinationaddress: travel.destinationaddress2,
+        destinationcity: travel.destinationcity,
+        destinationstate: travel.destinationstate,
+        destinationzip: travel.destinationzip,
+        otherinfo: travel.otherinfo,
+      });
+
+      // Set the petowner's cat and dog
+      owner.cat = cat;
+      owner.dog = dog;
+
+      // Set the quote's petowner
+      quote.petowner = owner;
+
+      // Set the quote's trip
+      quote.travel = trip;
+
+      // save everything
+      await trip.save();
+      await dog.save();
+      await cat.save();
+      await owner.save();
+      await quote.save();
+
+      console.log(quote);
     },
   },
 };

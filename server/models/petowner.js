@@ -4,6 +4,11 @@ const dogSchema = require("./Dog");
 
 const petownerSchema = new Schema(
   {
+    quote: {
+      type: Schema.Types.ObjectId,
+      ref: "Quote",
+    },
+
     firstname: {
       type: String,
       required: true,
