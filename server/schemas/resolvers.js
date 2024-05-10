@@ -91,23 +91,24 @@ const resolvers = {
 
     createQuote: async (parent, { petowner, travel }) => {
       console.log("sanity check");
+      console.log(petowner);
 
       /////////////////////////////////////////////////////////////////
       // Create a new quote
       const quote = new Quote();
 
       const cat = new Cat({
-        catbreed: petowner.cat.catbreed,
-        catquantity: petowner.cat.catquantity,
-        catage: petowner.cat.catage,
-        catweight: petowner.cat.catweight,
+        breed: petowner.cat.catbreed,
+        quantity: petowner.cat.catquantity,
+        age: petowner.cat.catage,
+        weight: petowner.cat.catweight,
       });
 
       const dog = new Dog({
-        dogbreed: petowner.dog.dogbreed,
-        dogquantity: petowner.dog.dogquantity,
-        dogage: petowner.dog.dogage,
-        dogweight: petowner.dog.dogweight,
+        breed: petowner.dog.dogbreed,
+        quantity: petowner.dog.dogquantity,
+        age: petowner.dog.dogage,
+        weight: petowner.dog.dogweight,
       });
 
       // Create a new petowner for the quote
