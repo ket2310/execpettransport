@@ -2,10 +2,10 @@ const { Schema, model } = require("mongoose");
 
 const travelSchema = new Schema(
   {
-    quote: {
-      type: Schema.Types.ObjectId,
-      ref: "Quote",
-    },
+    // quote: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Quote",
+    // },
     traveltype: {
       type: String,
       required: true,

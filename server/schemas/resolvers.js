@@ -90,12 +90,14 @@ const resolvers = {
     },
 
     createQuote: async (parent, { petowner, travel }) => {
-      console.log("sanity check");
-      console.log(petowner);
+      // console.log("Pet Owner:");
+      // console.log(petowner);
 
       /////////////////////////////////////////////////////////////////
       // Create a new quote
       const quote = new Quote();
+      
+      console.log(quote);
 
       const cat = new Cat({
         breed: petowner.cat.catbreed,
@@ -121,6 +123,8 @@ const resolvers = {
         instructions: petowner.instructions,
       });
 
+      // console.log("Trip:");
+      // console.log(travel);
       const trip = new Travel({
         traveltype: travel.traveltype,
         traveldate: travel.traveldate,
@@ -137,7 +141,7 @@ const resolvers = {
         destinationzip: travel.destinationzip,
         otherinfo: travel.otherinfo,
       });
-
+ 
       // Set the petowner's cat and dog
       owner.cat = cat;
       owner.dog = dog;
@@ -146,16 +150,17 @@ const resolvers = {
       quote.petowner = owner;
 
       // Set the quote's trip
+      
       quote.travel = trip;
 
       // save everything
-      await trip.save();
       await dog.save();
       await cat.save();
       await owner.save();
+      await trip.save();
       await quote.save();
 
-      console.log(quote);
+//      console.log(quote);
     },
   },
 };

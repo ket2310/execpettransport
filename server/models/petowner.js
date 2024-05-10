@@ -1,14 +1,6 @@
 const { Schema, model } = require("mongoose");
-const catSchema = require("./Cat");
-const dogSchema = require("./Dog");
-
 const petownerSchema = new Schema(
   {
-    quote: {
-      type: Schema.Types.ObjectId,
-      ref: "Quote",
-    },
-
     firstname: {
       type: String,
       required: true,
@@ -41,11 +33,11 @@ const petownerSchema = new Schema(
       type: String,
       trim: true,
     },
-    Cat: {
+    cat: {
       type: Schema.Types.ObjectId,
       ref: "Cat",
     },
-    Dog: {
+    dog: {
       type: Schema.Types.ObjectId,
       ref: "Dog",
     },

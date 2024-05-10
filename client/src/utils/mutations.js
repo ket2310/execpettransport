@@ -28,6 +28,9 @@ export const CREATE_QUOTE = gql`
         phonenumber
         cellnumber
       }
+      travel {
+        traveltype
+      }
     }
   }
 `;
