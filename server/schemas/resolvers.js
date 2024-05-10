@@ -103,7 +103,7 @@ const resolvers = {
         age: petowner.cat.catage,
         weight: petowner.cat.catweight,
       });
-
+      //create dog
       const dog = new Dog({
         breed: petowner.dog.dogbreed,
         quantity: petowner.dog.dogquantity,
