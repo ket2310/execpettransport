@@ -3,7 +3,6 @@ const { PetOwner, Cat, Dog, Travel, Quote } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 //const { signToken } = require("../utils/auth");
 const { ObjectId } = require("mongodb");
-const { emit } = require("../models/Cat");
 
 const resolvers = {
   Query: {
@@ -90,9 +89,6 @@ const resolvers = {
     },
 
     createQuote: async (parent, { petowner, travel }) => {
-      // console.log("Pet Owner:");
-      // console.log(petowner);
-
       /////////////////////////////////////////////////////////////////
       // Create a new quote
       const quote = new Quote();
