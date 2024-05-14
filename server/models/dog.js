@@ -9,8 +9,6 @@ const dogSchema = new Schema(
     breed: {
       type: String,
       required: true,
-      unique: true,
-      trim: true,
     },
     quantity: {
       type: Number,

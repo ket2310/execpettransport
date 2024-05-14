@@ -9,8 +9,6 @@ const travelSchema = new Schema(
     traveltype: {
       type: String,
       required: true,
-      unique: true,
-      trim: true,
     },
     traveldate: {
       type: Date,
@@ -22,57 +20,46 @@ const travelSchema = new Schema(
     pickupaddress: {
       type: String,
       required: true,
-      trim: true,
     },
     pickupaddress2: {
       type: String,
       required: true,
-      trim: true,
     },
     pickupcity: {
       type: String,
       required: true,
-      trim: true,
     },
     pickupstate: {
       type: String,
       required: true,
-      trim: true,
     },
     pickupzip: {
       type: String,
       required: true,
-      trim: true,
     },
 
     destinationaddress: {
       type: String,
       required: true,
-      trim: true,
     },
     destinationaddress2: {
       type: String,
       required: true,
-      trim: true,
     },
     destinationcity: {
       type: String,
       required: true,
-      trim: true,
     },
     destinationstate: {
       type: String,
       required: true,
-      trim: true,
     },
     destinationzip: {
       type: String,
       required: true,
-      trim: true,
     },
     otherinfo: {
       type: String,
-      trim: true,
     },
   },
   {

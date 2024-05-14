@@ -96,25 +96,11 @@ const resolvers = {
       /////////////////////////////////////////////////////////////////
       // Create a new quote
       const quote = new Quote();
-      
+
       console.log(quote);
 
-      const cat = new Cat({
-        breed: petowner.cat.catbreed,
-        quantity: petowner.cat.catquantity,
-        age: petowner.cat.catage,
-        weight: petowner.cat.catweight,
-      });
-      //create dog
-      const dog = new Dog({
-        breed: petowner.dog.dogbreed,
-        quantity: petowner.dog.dogquantity,
-        age: petowner.dog.dogage,
-        weight: petowner.dog.dogweight,
-      });
-
       // Create a new petowner for the quote
-      const owner = new PetOwner({
+      quote.petowner = new PetOwner({
         firstname: petowner.firstname,
         lastname: petowner.lastname,
         email: petowner.email,
@@ -123,9 +109,28 @@ const resolvers = {
         instructions: petowner.instructions,
       });
 
-      // console.log("Trip:");
-      // console.log(travel);
-      const trip = new Travel({
+      console.log(quote);
+
+      quote.petowner.cat = new Cat({
+        breed: petowner.cat.catbreed,
+        quantity: petowner.cat.catquantity,
+        age: petowner.cat.catage,
+        weight: petowner.cat.catweight,
+      });
+
+      console.log(quote);
+
+      //create dog
+      quote.petowner.dog = new Dog({
+        breed: petowner.dog.dogbreed,
+        quantity: petowner.dog.dogquantity,
+        age: petowner.dog.dogage,
+        weight: petowner.dog.dogweight,
+      });
+
+      console.log(quote);
+
+      quote.travel = new Travel({
         traveltype: travel.traveltype,
         traveldate: travel.traveldate,
         returndate: travel.returndate,
@@ -141,26 +146,21 @@ const resolvers = {
         destinationzip: travel.destinationzip,
         otherinfo: travel.otherinfo,
       });
- 
-      // Set the petowner's cat and dog
-      owner.cat = cat;
-      owner.dog = dog;
 
-      // Set the quote's petowner
-      quote.petowner = owner;
-
-      // Set the quote's trip
-      
-      quote.travel = trip;
+      console.log(quote);
 
       // save everything
-      await dog.save();
-      await cat.save();
-      await owner.save();
-      await trip.save();
-      await quote.save();
+      await quote.petowner.dog.save();
+      await quote.petowner.cat.save();
+      await quote.petowner.save();
+      await quote.travel.save(function (err) {
+        if (err) console.log(err);
+      });
+      await quote.save(function (err) {
+        if (err) console.log(err);
+      });
 
-//      console.log(quote);
+      console.log(quote);
     },
   },
 };
