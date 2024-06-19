@@ -310,7 +310,9 @@ function FreeQuoteForm() {
                         required: "First Name is required.",
                       })}
                     />
-                    {errors?.petowner && errors.petowner.message}
+                    <label style={{ color: "red" }}>
+                      {errors?.petowner && errors.petowner.message}
+                    </label>
                     <br />
                     <label> Last Name:</label>&nbsp;
                     <input
